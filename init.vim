@@ -39,8 +39,9 @@ Plugin 'mikelue/vim-maven-plugin'
 "=============== Javascript ======================= 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 "=============== LaTeX ============================
-Plugin 'xuhdev/vim-latex-live-preview' "live preview for latex files
 Plugin 'lervag/vimtex' "autocompletion for LaTeX
+let g:vimtex_view_general_viewer = 'zathura'
+let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 let g:syntastic_tex_checkers = ['lacheck']
 autocmd Filetype tex setl updatetime=100 
 autocmd BufRead,BufNewFile *.tex setlocal spell spelllang=en_us "auto turn spell check on for LaTeX files
