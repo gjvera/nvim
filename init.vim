@@ -1,9 +1,18 @@
 if !has('nvim')
     set ttymouse=xterm2
 endif
-call plug#begin('~/.local/share/nvim/plugged') "only needed for neovim with eclim
-Plug '~/.vim/bundle/eclim'
-call plug#end()
+if has('win32')
+    set rtp+=~/AppData/Local/nvim/bundle/Vundle.vim
+    let g:python3_host_prog = 'C:\python37\python3.exe'
+    let g:python2_host_prog = 'C:\python27\python.exe'
+else
+    set rtp+=~/.config/nvim/bundle/Vundle.vim
+    let g:python2_host_prog = '/usr/local/bin/python'
+    let g:python3_host_prog = '/usr/local/bin/python3'
+    call plug#begin('~/.local/share/nvim/plugged') "only needed for neovim with eclim
+    Plug '~/.vim/bundle/eclim'
+    call plug#end()
+endif
 set t_Co=256
 set nocompatible "required
 filetype on
@@ -11,7 +20,6 @@ filetype indent on
 filetype plugin on 
 set termguicolors
 set number
-set rtp+=~/.config/nvim/bundle/Vundle.vim
 set cursorline
 call vundle#begin()
 if has('nvim')
@@ -48,25 +56,25 @@ autocmd BufRead,BufNewFile *.tex setlocal spell spelllang=en_us "auto turn spell
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor = 'latex'
 if !exists('g:deoplete#omni#input_patterns')
-      let g:deoplete#omni#input_patterns = {}
-  endif
+    let g:deoplete#omni#input_patterns = {}
+endif
 let g:vimtex#re#deoplete = '\\(?:'
-      \ .  '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
-      \ . '|(text|block)cquote\*?(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
-      \ . '|(for|hy)\w*cquote\*?{[^}]*}(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
-      \ . '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
-      \ . '|hyperref\s*\[[^]]*'
-      \ . '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-      \ . '|(?:include(?:only)?|input|subfile)\s*\{[^}]*'
-      \ . '|\w*(gls|Gls|GLS)(pl)?\w*(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
-      \ . '|includepdf(\s*\[[^]]*\])?\s*\{[^}]*'
-      \ . '|includestandalone(\s*\[[^]]*\])?\s*\{[^}]*'
-      \ . '|(usepackage|RequirePackage)(\s*\[[^]]*\])?\s*\{[^}]*'
-      \ . '|documentclass(\s*\[[^]]*\])?\s*\{[^}]*'
-      \ . '|begin(\s*\[[^]]*\])?\s*\{[^}]*'
-      \ . '|end(\s*\[[^]]*\])?\s*\{[^}]*'
-      \ . '|\w*'
-      \ .')'
+            \ .  '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
+            \ . '|(text|block)cquote\*?(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
+            \ . '|(for|hy)\w*cquote\*?{[^}]*}(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
+            \ . '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
+            \ . '|hyperref\s*\[[^]]*'
+            \ . '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+            \ . '|(?:include(?:only)?|input|subfile)\s*\{[^}]*'
+            \ . '|\w*(gls|Gls|GLS)(pl)?\w*(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+            \ . '|includepdf(\s*\[[^]]*\])?\s*\{[^}]*'
+            \ . '|includestandalone(\s*\[[^]]*\])?\s*\{[^}]*'
+            \ . '|(usepackage|RequirePackage)(\s*\[[^]]*\])?\s*\{[^}]*'
+            \ . '|documentclass(\s*\[[^]]*\])?\s*\{[^}]*'
+            \ . '|begin(\s*\[[^]]*\])?\s*\{[^}]*'
+            \ . '|end(\s*\[[^]]*\])?\s*\{[^}]*'
+            \ . '|\w*'
+            \ .')'
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 "============== Clojure ===========================
 " Plugin 'venatius/vim-cljfmt' "cool Clojure formatting tool 
@@ -106,8 +114,6 @@ Plugin 'luochen1990/rainbow'     "Rainbow Parenthesis
 Plugin 'jiangmiao/auto-pairs'    "Auto closing of parenthesis 
 Plugin 'floobits/floobits-neovim'
 let g:rainbow_active = 1
-let g:python2_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
 let g:deoplete#enable_at_startup = 1
 :tnoremap<Esc> <C-\><C-n>
 
