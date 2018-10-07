@@ -5,6 +5,7 @@ if has('win32')
     set rtp+=~/AppData/Local/nvim/bundle/Vundle.vim
     let g:python3_host_prog = 'C:\python37\python3.exe'
     let g:python2_host_prog = 'C:\python27\python.exe'
+    set ff=unix
 else
     set rtp+=~/.config/nvim/bundle/Vundle.vim
     let g:python2_host_prog = '/usr/local/bin/python'
