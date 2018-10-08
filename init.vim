@@ -3,14 +3,15 @@ if !has('nvim')
 endif
 call plug#begin('~/.local/share/nvim/plugged') "only needed for neovim with eclim
 Plug '~/.vim/bundle/eclim'
+Plug 'dylanaraps/wal.vim'
 call plug#end()
 set t_Co=256
 set nocompatible "required
 filetype on
 filetype indent on
 filetype plugin on 
-set termguicolors
 set number
+set termguicolors
 set rtp+=~/.config/nvim/bundle/Vundle.vim
 set cursorline
 call vundle#begin()
@@ -20,7 +21,7 @@ if has('nvim')
         call remote_startserver('VIM')
     endif
 endif
-colorscheme synthwave 
+colorscheme synthwave
 syntax on
 if has('macunix')
     hi CursorLine term=bold cterm=bold guibg=#5c2782
@@ -28,7 +29,6 @@ endif
 hi Normal ctermbg=none guibg=none
 "required
 Plugin 'VundleVim/Vundle.vim'
-
 "=============== C/C++ ============================
 Plugin 'vim-syntastic/syntastic' "syntax checker 
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -69,8 +69,9 @@ let g:vimtex#re#deoplete = '\\(?:'
       \ .')'
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 "============== Clojure ===========================
-" Plugin 'venatius/vim-cljfmt' "cool Clojure formatting tool 
-" Plugin 'tpope/vim-fireplace' "Repl support
+Plugin 'venantius/vim-cljfmt' "cool Clojure formatting tool 
+Plugin 'tpope/vim-fireplace' "Repl support
+Plugin 'venantius/vim-eastwood'
 " Plugin 'tpope/vim-classpath' 
 
 "============== Perl ==============================
@@ -105,10 +106,15 @@ Plugin 'pangloss/vim-javascript' "Better javascript support for Vim
 Plugin 'luochen1990/rainbow'     "Rainbow Parenthesis
 Plugin 'jiangmiao/auto-pairs'    "Auto closing of parenthesis 
 Plugin 'floobits/floobits-neovim'
+Plugin 'kien/ctrlp.vim'          
 let g:rainbow_active = 1
 let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#sources#flow#flow_bin = 'flow'
+let g:EclimCompletionMethod = 'omnifunc'
+let g:ctrlp_map = '<C-p>'
+let g:ctrlp_custom_ignore = 'node_modules\|git'
 :tnoremap<Esc> <C-\><C-n>
 
 filetype plugin indent on
