@@ -31,7 +31,7 @@ endif
 colorscheme synthwave
 syntax on
 if has('macunix')
-    hi CursorLine term=bold cterm=bold guibg=#5c2782
+    hi CursorLine guifg=NONE guibg=#222E30 guisp=#222E30 gui=NONE ctermfg=NONE ctermbg=54 cterm=NONE
 endif
 hi Normal ctermbg=none guibg=none
 "required
