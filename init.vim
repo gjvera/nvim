@@ -37,14 +37,18 @@ hi Normal ctermbg=none guibg=none
 "required
 Plugin 'VundleVim/Vundle.vim'
 "=============== C/C++ ============================
-Plugin 'vim-syntastic/syntastic' "syntax checker 
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'justmao945/vim-clang'    "autocomplete for C/C++
 "============= Java/Maven =========================
 Plugin 'mikelue/vim-maven-plugin'
-" autocmd VimLeave *.java ShutdownEclim
 "=============== Javascript ======================= 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd BufEnter *.tsx set filetype=typescript
+Plugin 'pangloss/vim-javascript' "Better javascript support for Vim
+Plugin 'HerringtonDarkholme/yats.vim'
+Plugin 'mhartington/nvim-typescript'
+"=============== Python =========================== 
+Plugin 'davidhalter/jedi-vim'
 "=============== LaTeX ============================
 Plugin 'lervag/vimtex' "autocompletion for LaTeX
 let g:vimtex_view_general_viewer = 'zathura'
@@ -95,6 +99,8 @@ func! s:CompleteDot()
 endfunction
 "============== XML  ==============================
 Plugin 'othree/xml.vim'      
+com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
+autocmd Filetype xml nnoremap = :FormatXML<Cr>
 "============== Setup =============================
 Plugin 'w0rp/ale'
 let g:ale_linters = {
@@ -108,17 +114,22 @@ Plugin 'tpope/vim-fugitive'      "git wrapper for vim airline
 Plugin 'tpope/vim-commentary'    "commment blocks of code out
 Plugin 'tpope/vim-surround'      "delete, change, add surrounding
 Plugin 'scrooloose/nerdtree'	 "file explorer for vim
+autocmd VimEnter * NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
-Plugin 'pangloss/vim-javascript' "Better javascript support for Vim
 Plugin 'luochen1990/rainbow'     "Rainbow Parenthesis
 Plugin 'jiangmiao/auto-pairs'    "Auto closing of parenthesis 
 Plugin 'floobits/floobits-neovim'
 Plugin 'kien/ctrlp.vim'          
+let g:ctrlp_root_markers = ['pom.xml']
+let g:ctrlp_working_path_mode = 'r'
 let g:rainbow_active = 1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#sources#flow#flow_bin = 'flow'
 let g:EclimCompletionMethod = 'omnifunc'
 let g:ctrlp_map = '<C-p>'
+set ignorecase
+set smartcase
 let g:ctrlp_custom_ignore = 'node_modules\|git'
 :tnoremap<Esc> <C-\><C-n>
 
@@ -126,6 +137,7 @@ filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
 set expandtab
+set mouse=a
 if has('gui_running')
     set guifont=Nimbus\ Mono\ PS\ Bold\ 13
 endif
