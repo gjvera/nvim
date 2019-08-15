@@ -97,8 +97,6 @@ au BufRead,BufNewFile *.ts set filetype=typescript
 let g:ctrlp_root_markers = ['pom.xml']
 let g:ctrlp_working_path_mode = 'r'
 let g:rainbow_active = 1
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#flow#flow_bin = 'flow'
 let g:EclimCompletionMethod = 'omnifunc'
 let g:ctrlp_map = '<C-p>'
 set ignorecase

@@ -94,3 +94,6 @@
 [submodule "bundle/plugged/yats.vim"]
 	path = bundle/plugged/yats.vim
 	url = git@github.com:HerringtonDarkholme/yats.vim.git
+[submodule "bundle/plugged/auto-pairs"]
+	path = bundle/plugged/auto-pairs
+	url = git@github.com:jiangmiao/auto-pairs.git
