@@ -7,13 +7,10 @@ if has('win32')
     let g:python2_host_prog = 'C:\python27\python.exe'
     set ff=unix
 else
-    set rtp+=~/.config/nvim/bundle/Vundle.vim
     let g:python2_host_prog = '/usr/local/bin/python'
     let g:python3_host_prog = '/usr/local/bin/python3'
-    call plug#begin('~/.local/share/nvim/plugged') "only needed for neovim with eclim
-    Plug '~/.vim/bundle/eclim'
-    Plug '~/.config/nvim/bundle/vim'
-    call plug#end()
+    set rtp+=~/.config/nvim/vim-plug
+    call plug#begin('~/.config/nvim/bundle/plugged') 
 endif
 set t_Co=256
 set nocompatible "required
@@ -22,32 +19,29 @@ filetype indent on
 filetype plugin on 
 set number
 set cursorline
-call vundle#begin()
-Plugin 'neoclide/coc.nvim'
-colorscheme synthwave 
-syntax on
+colorscheme synthwave   
+syntax enable  
 if has('macunix')
     hi CursorLine guifg=NONE guibg=#222E30 guisp=#222E30 gui=NONE ctermfg=NONE ctermbg=54 cterm=NONE
 endif
 hi Normal ctermbg=none guibg=none
-"required
-Plugin 'VundleVim/Vundle.vim'
 "=============== C/C++ ============================
-Plugin 'octol/vim-cpp-enhanced-highlight'
-"Plugin 'justmao945/vim-clang'    "autocomplete for C/C++
+Plug 'octol/vim-cpp-enhanced-highlight', { 'for': 'cpp' }
+Plug 'justmao945/vim-clang', { 'for': ['cpp', 'c'] }    "autocomplete for C/C++
 "============= Java/Maven =========================
-Plugin 'mikelue/vim-maven-plugin'
+Plug 'mikelue/vim-maven-plugin'
+Plug 'dansomething/vim-eclim', { 'for': 'java' }
 "=============== Javascript ======================= 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 autocmd BufEnter *.tsx set filetype=typescript
-Plugin 'pangloss/vim-javascript' "Better javascript support for Vim
-Plugin 'HerringtonDarkholme/yats.vim'
-Plugin 'mhartington/nvim-typescript'
-Plugin 'elzr/vim-json'
+Plug 'pangloss/vim-javascript' "Better javascript support for Vim
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript'
+Plug 'elzr/vim-json'
 "=============== Python =========================== 
-Plugin 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 "=============== LaTeX ============================
-Plugin 'lervag/vimtex' "autocompletion for LaTeX
+Plug 'lervag/vimtex', { 'for': 'tex' } "autocompletion for LaTeX
 let g:vimtex_view_general_viewer = 'zathura'
 let g:vimtex_view_general_options_latexmk = '-reuse-instance'
 let g:syntastic_tex_checkers = ['lacheck']
@@ -56,44 +50,48 @@ autocmd BufRead,BufNewFile *.tex setlocal spell spelllang=en_us "auto turn spell
 let g:vimtex_compiler_progname = 'nvr'
 let g:tex_flavor = 'latex'
 "============== Clojure ===========================
-Plugin 'venantius/vim-cljfmt' "cool Clojure formatting tool 
-Plugin 'tpope/vim-fireplace' "Repl support
-Plugin 'venantius/vim-eastwood'
-" Plugin 'tpope/vim-classpath' 
+Plug 'venantius/vim-cljfmt', { 'for': 'clojure' } "cool Clojure formatting tool 
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' } "Repl support
+Plug 'venantius/vim-eastwood', { 'for': 'clojure' }
+" Plug 'tpope/vim-classpath' 
 
 "============== Perl ==============================
-Plugin 'vim-perl/vim-perl6'  "Perl6 support
+Plug 'vim-perl/vim-perl6'  "Perl6 support
 vmap ,pt :!perltidy<CR>
 nmap ,pt <ESC>:%! perltidy<CR>
 
 "============== Ruby ==============================
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 "============== XML  ==============================
-Plugin 'othree/xml.vim'      
+Plug 'othree/xml.vim'      
 com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
 autocmd Filetype xml nnoremap = :FormatXML<Cr>
 "============== Setup =============================
-Plugin 'w0rp/ale'
+Plug 'dense-analysis/ale'
 let g:ale_linters = {
             \ 'python': ['pylint'],
             \ 'c': ['gcc']
             \}
-Plugin 'majutsushi/tagbar'
-Plugin 'martinda/Jenkinsfile-vim-syntax'
+Plug 'majutsushi/tagbar'
+Plug 'martinda/Jenkinsfile-vim-syntax'
 map <C-b> :TagbarToggle<CR>
-Plugin 'vim-airline/vim-airline' "self explanatory
-Plugin 'tpope/vim-fugitive'      "git wrapper for vim airline
-Plugin 'tpope/vim-commentary'    "commment blocks of code out
-Plugin 'tpope/vim-surround'      "delete, change, add surrounding
-Plugin 'scrooloose/nerdtree'	 "file explorer for vim
+Plug 'vim-airline/vim-airline' "self explanatory
+Plug 'tpope/vim-fugitive'      "git wrapper for vim airline
+Plug 'tpope/vim-commentary'    "commment blocks of code out
+Plug 'tpope/vim-surround'      "delete, change, add surrounding
+Plug 'scrooloose/nerdtree'	 "file explorer for vim
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
-Plugin 'luochen1990/rainbow'     "Rainbow Parenthesis
-Plugin 'jiangmiao/auto-pairs'    "Auto closing of parenthesis 
-Plugin 'floobits/floobits-neovim'
-Plugin 'kien/ctrlp.vim'          
-Plugin 'jceb/vim-orgmode'
-Plugin 'chriskempson/base16-vim'
+Plug 'luochen1990/rainbow'     "Rainbow Parenthesis
+Plug 'jiangmiao/auto-pairs'    "Auto closing of parenthesis 
+Plug 'floobits/floobits-neovim'
+Plug 'kien/ctrlp.vim'          
+Plug 'chriskempson/base16-vim'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'neoclide/coc.nvim', {'branch': 'release' }
+Plug 'agude/vim-eldar', { 'as': 'eldar' }
+Plug 'kenwheeler/glow-in-the-dark-gucci-shark-bites-vim'
+call plug#end()
 au BufRead,BufNewFile Jenkinsfile setfiletype Jenkinsfile
 au BufRead,BufNewFile *.ts set filetype=typescript
 let g:ctrlp_root_markers = ['pom.xml']
@@ -120,5 +118,4 @@ endif
 
 set backspace=indent,eol,start
 
-call vundle#end()
 filetype plugin indent on

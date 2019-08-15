@@ -1,3 +1,96 @@
 [submodule "bundle/Vundle.vim"]
 	path = bundle/Vundle.vim
 	url = git@github.com:VundleVim/Vundle.vim.git
+[submodule "bundle/plugged/Jenkinsfile-vim-syntax"]
+	path = bundle/plugged/Jenkinsfile-vim-syntax
+	url = git@github.com:martinda/Jenkinsfile-vim-syntax.git
+[submodule "bundle/plugged/ale"]
+	path = bundle/plugged/ale
+	url = git@github.com:dense-analysis/ale.git
+[submodule "bundle/plugged/base16-vim"]
+	path = bundle/plugged/base16-vim
+	url = git@github.com:chriskempson/base16-vim.git
+[submodule "bundle/plugged/challenger-deep"]
+	path = bundle/plugged/challenger-deep
+	url = git@github.com:challenger-deep-theme/vim.git
+[submodule "bundle/plugged/coc.nvim"]
+	path = bundle/plugged/coc.nvim
+	url = git@github.com:neoclide/coc.nvim.git
+[submodule "bundle/plugged/ctrlp.vim"]
+	path = bundle/plugged/ctrlp.vim
+	url = git@github.com:kien/ctrlp.vim.git
+[submodule "bundle/plugged/eldar"]
+	path = bundle/plugged/eldar
+	url = git@github.com:agude/vim-eldar.git
+[submodule "bundle/plugged/floobits-neovim"]
+	path = bundle/plugged/floobits-neovim
+	url = git@github.com:Floobits/floobits-neovim.git
+[submodule "bundle/plugged/glow-in-the-dark-gucci-shark-bites-vim"]
+	path = bundle/plugged/glow-in-the-dark-gucci-shark-bites-vim
+	url = git@github.com:kenwheeler/glow-in-the-dark-gucci-shark-bites-vim.git
+[submodule "bundle/plugged/jedi-vim"]
+	path = bundle/plugged/jedi-vim
+	url = git@github.com:davidhalter/jedi-vim.git
+[submodule "bundle/plugged/nerdtree"]
+	path = bundle/plugged/nerdtree
+	url = git@github.com:scrooloose/nerdtree.git
+[submodule "bundle/plugged/nvim-typescript"]
+	path = bundle/plugged/nvim-typescript
+	url = git@github.com:mhartington/nvim-typescript.git
+[submodule "bundle/plugged/rainbow"]
+	path = bundle/plugged/rainbow
+	url = git@github.com:luochen1990/rainbow.git
+[submodule "bundle/plugged/tagbar"]
+	path = bundle/plugged/tagbar
+	url = git@github.com:majutsushi/tagbar.git
+[submodule "bundle/plugged/vim-airline"]
+	path = bundle/plugged/vim-airline
+	url = git@github.com:vim-airline/vim-airline.git
+[submodule "bundle/plugged/vim-clang"]
+	path = bundle/plugged/vim-clang
+	url = git@github.com:justmao945/vim-clang.git
+[submodule "bundle/plugged/vim-cljfmt"]
+	path = bundle/plugged/vim-cljfmt
+	url = git@github.com:venantius/vim-cljfmt.git
+[submodule "bundle/plugged/vim-commentary"]
+	path = bundle/plugged/vim-commentary
+	url = git@github.com:tpope/vim-commentary.git
+[submodule "bundle/plugged/vim-cpp-enhanced-highlight"]
+	path = bundle/plugged/vim-cpp-enhanced-highlight
+	url = git@github.com:octol/vim-cpp-enhanced-highlight.git
+[submodule "bundle/plugged/vim-eastwood"]
+	path = bundle/plugged/vim-eastwood
+	url = git@github.com:venantius/vim-eastwood.git
+[submodule "bundle/plugged/vim-eclim"]
+	path = bundle/plugged/vim-eclim
+	url = git@github.com:dansomething/vim-eclim.git
+[submodule "bundle/plugged/vim-fireplace"]
+	path = bundle/plugged/vim-fireplace
+	url = git@github.com:tpope/vim-fireplace.git
+[submodule "bundle/plugged/vim-fugitive"]
+	path = bundle/plugged/vim-fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+[submodule "bundle/plugged/vim-javascript"]
+	path = bundle/plugged/vim-javascript
+	url = git@github.com:pangloss/vim-javascript.git
+[submodule "bundle/plugged/vim-json"]
+	path = bundle/plugged/vim-json
+	url = git@github.com:elzr/vim-json.git
+[submodule "bundle/plugged/vim-maven-plugin"]
+	path = bundle/plugged/vim-maven-plugin
+	url = git@github.com:mikelue/vim-maven-plugin.git
+[submodule "bundle/plugged/vim-perl6"]
+	path = bundle/plugged/vim-perl6
+	url = git@github.com:vim-perl/vim-perl6.git
+[submodule "bundle/plugged/vim-surround"]
+	path = bundle/plugged/vim-surround
+	url = git@github.com:tpope/vim-surround.git
+[submodule "bundle/plugged/vimtex"]
+	path = bundle/plugged/vimtex
+	url = git@github.com:lervag/vimtex.git
+[submodule "bundle/plugged/xml.vim"]
+	path = bundle/plugged/xml.vim
+	url = git@github.com:othree/xml.vim.git
+[submodule "bundle/plugged/yats.vim"]
+	path = bundle/plugged/yats.vim
+	url = git@github.com:HerringtonDarkholme/yats.vim.git
