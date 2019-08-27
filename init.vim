@@ -19,10 +19,12 @@ filetype indent on
 filetype plugin on 
 set number
 set cursorline
+let mapleader = ","
 colorscheme synthwave   
 syntax enable  
 if has('macunix')
     hi CursorLine guifg=NONE guibg=#222E30 guisp=#222E30 gui=NONE ctermfg=NONE ctermbg=54 cterm=NONE
+    hi Visual guifg=#FF0000 guibg=NONE gui=NONE ctermfg=43 ctermbg=54 cterm=NONE
 endif
 hi Normal ctermbg=none guibg=none
 "=============== C/C++ ============================
@@ -31,6 +33,31 @@ Plug 'justmao945/vim-clang', { 'for': ['cpp', 'c'] }    "autocomplete for C/C++
 "============= Java/Maven =========================
 Plug 'mikelue/vim-maven-plugin'
 Plug 'dansomething/vim-eclim', { 'for': 'java' }
+nmap <Leader>jdp :JavaDocPreview<Return>
+nmap <Leader>jc :JavaCorrect<Return>
+nmap <Leader>jf :%JavaFormat<Return>
+autocmd FileType java inoremap <expr> <buffer> . <SID>CompleteDot()
+func! s:ShouldComplete() "Taken from vim-clang
+  if getline('.') =~# '#\s*\(include\|import\)' || getline('.')[col('.') - 2] == "'"
+    return 0
+  endif
+  if col('.') == 1
+    return 1
+  endif
+  for id in synstack(line('.'), col('.') - 1)
+    if synIDattr(id, 'name') =~# 'Comment\|String\|Number\|Char\|Label\|Special'
+      return 0
+    endif
+  endfor
+  return 1
+endf
+
+func! s:CompleteDot()
+  if s:ShouldComplete()
+    return ".\<C-x>\<C-o>"
+  endif
+  return '.'
+endf
 "=============== Javascript ======================= 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 autocmd BufEnter *.tsx set filetype=typescript
