@@ -1,5 +1,9 @@
 # Neovim Config
 
+## Dependencies
+- Python
+- Nodejs
+
 ## Installation
 
 1) Install Neovim with your favorite package manager:
