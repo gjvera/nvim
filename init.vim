@@ -117,7 +117,7 @@ if executable('rg')
   let g:ctrlp_use_caching = 0
 endif
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow 
-            \--glob "!.git/*" --glob "!node_modules/*" --glob "!schema.json" --glob "!.log/*" --glob "!yarn-error.log" --glob "!yarn.lock" --glob "!dist/*" --glob "!target/*" --color "always" '.shellescape(<q-args>), 1,
+            \--glob "!{.git,node_modules,.log,dist,target}/*" --glob "!{schema.json,yarn-error.log,yarn.lock,.travis.yml,.eslintrc.js,.prettierrc.js,apollo.config.js}" --color "always" '.shellescape(<q-args>), 1,
             \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 let g:ctrlp_working_path_mode = 'r'
 let g:rainbow_active = 1
