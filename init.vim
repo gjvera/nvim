@@ -10,6 +10,7 @@ else
     let g:python2_host_prog = '/usr/local/bin/python'
     let g:python3_host_prog = '/usr/local/bin/python3'
     set rtp+=~/.config/nvim/vim-plug
+    set rtp+=/usr/local/opt/fzf
     call plug#begin('~/.config/nvim/bundle/plugged') 
 endif
 set t_Co=256
@@ -20,7 +21,7 @@ filetype plugin on
 set number
 set cursorline
 let mapleader = ","
-colorscheme synthwave   
+colorscheme synthwave 
 syntax enable  
 if has('macunix')
     hi CursorLine guifg=NONE guibg=#222E30 guisp=#222E30 gui=NONE ctermfg=NONE ctermbg=54 cterm=NONE
@@ -33,37 +34,21 @@ Plug 'justmao945/vim-clang', { 'for': ['cpp', 'c'] }    "autocomplete for C/C++
 "============= Java/Maven =========================
 Plug 'mikelue/vim-maven-plugin'
 Plug 'dansomething/vim-eclim', { 'for': 'java' }
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
+Plug 'google/vim-glaive'
 nmap <Leader>jdp :JavaDocPreview<Return>
 nmap <Leader>jc :JavaCorrect<Return>
-nmap <Leader>jf :%JavaFormat<Return>
-autocmd FileType java inoremap <expr> <buffer> . <SID>CompleteDot()
-func! s:ShouldComplete() "Taken from vim-clang
-  if getline('.') =~# '#\s*\(include\|import\)' || getline('.')[col('.') - 2] == "'"
-    return 0
-  endif
-  if col('.') == 1
-    return 1
-  endif
-  for id in synstack(line('.'), col('.') - 1)
-    if synIDattr(id, 'name') =~# 'Comment\|String\|Number\|Char\|Label\|Special'
-      return 0
-    endif
-  endfor
-  return 1
-endf
-
-func! s:CompleteDot()
-  if s:ShouldComplete()
-    return ".\<C-x>\<C-o>"
-  endif
-  return '.'
-endf
+nmap <Leader>fc :FormatCode<Return>
 "=============== Javascript ======================= 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
 autocmd BufEnter *.tsx set filetype=typescript
 Plug 'pangloss/vim-javascript' "Better javascript support for Vim
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'yarn install',
+  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
+"Plug 'mhartington/nvim-typescript'
 Plug 'elzr/vim-json'
 "=============== Python =========================== 
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
@@ -102,11 +87,12 @@ let g:ale_linters = {
 Plug 'majutsushi/tagbar'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 map <C-b> :TagbarToggle<CR>
-Plug 'vim-airline/vim-airline' "self explanatory
+Plug 'vim-airline/vim-airline' 
 Plug 'tpope/vim-fugitive'      "git wrapper for vim airline
 Plug 'tpope/vim-commentary'    "commment blocks of code out
 Plug 'tpope/vim-surround'      "delete, change, add surrounding
 Plug 'scrooloose/nerdtree'	 "file explorer for vim
+Plug 'junegunn/fzf.vim'
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 map <C-n> :NERDTreeToggle<CR>
 Plug 'luochen1990/rainbow'     "Rainbow Parenthesis
@@ -119,12 +105,22 @@ Plug 'neoclide/coc.nvim', {'branch': 'release' }
 Plug 'agude/vim-eldar', { 'as': 'eldar' }
 Plug 'kenwheeler/glow-in-the-dark-gucci-shark-bites-vim'
 call plug#end()
+call glaive#Install()
+Glaive codefmt plugin[mappings]
+Glaive codefmt google_java_executable="java -jar /Users/gabriel/.config/nvim/google-java-format-1.7-all-deps.jar"
 au BufRead,BufNewFile Jenkinsfile setfiletype Jenkinsfile
 au BufRead,BufNewFile *.ts set filetype=typescript
-let g:ctrlp_root_markers = ['pom.xml']
+let g:ctrlp_root_markers = ['pom.xml, .git']
+if executable('rg')
+  set grepprg=rg\ --color=never
+  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+  let g:ctrlp_use_caching = 0
+endif
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow 
+            \--glob "!.git/*" --glob "!node_modules/*" --glob "!schema.json" --glob "!.log/*" --glob "!yarn-error.log" --glob "!yarn.lock" --glob "!dist/*" --glob "!target/*" --color "always" '.shellescape(<q-args>), 1,
+            \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 let g:ctrlp_working_path_mode = 'r'
 let g:rainbow_active = 1
-let g:EclimCompletionMethod = 'omnifunc'
 let g:ctrlp_map = '<C-p>'
 set ignorecase
 set smartcase
