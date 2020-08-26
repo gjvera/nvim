@@ -20,8 +20,8 @@ filetype indent on
 filetype plugin on 
 set number
 set cursorline
+set autoread
 let mapleader = ","
-colorscheme synthwave 
 syntax enable  
 if has('macunix')
     hi CursorLine guifg=NONE guibg=#222E30 guisp=#222E30 gui=NONE ctermfg=NONE ctermbg=54 cterm=NONE
@@ -42,14 +42,18 @@ nmap <Leader>jc :JavaCorrect<Return>
 nmap <Leader>fc :FormatCode<Return>
 "=============== Javascript ======================= 
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
-autocmd BufEnter *.tsx set filetype=typescript
+autocmd Filetype typescriptreact setlocal ts=2 sw=2 expandtab
+autocmd Filetype typescript setlocal ts=2 sw=2 expandtab
+autocmd BufEnter *.tsx set filetype=typescriptreact
 Plug 'pangloss/vim-javascript' "Better javascript support for Vim
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'yarn install',
-  \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
-"Plug 'mhartington/nvim-typescript'
+autocmd FileType javascript setlocal formatprg=prettier\ --single-quote\ --trailing-comma\ es5\ --semi\ false\ --arrow-parens\ avoid
+Plug 'sbdchd/neoformat'
+autocmd BufWritePre *.tsx Neoformat
+autocmd BufWritePre *.js Neoformat
 Plug 'elzr/vim-json'
+Plug 'leafgarland/typescript-vim', { 'for': ['javascript', 'typescript'] }
+Plug 'peitalin/vim-jsx-typescript', { 'for': ['javascript', 'typescript'] }
 "=============== Python =========================== 
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 "=============== LaTeX ============================
@@ -99,13 +103,11 @@ Plug 'luochen1990/rainbow'     "Rainbow Parenthesis
 Plug 'jiangmiao/auto-pairs'    "Auto closing of parenthesis 
 Plug 'floobits/floobits-neovim'
 Plug 'kien/ctrlp.vim'          
-Plug 'chriskempson/base16-vim'
-Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
 Plug 'neoclide/coc.nvim', {'branch': 'release' }
-Plug 'agude/vim-eldar', { 'as': 'eldar' }
-Plug 'kenwheeler/glow-in-the-dark-gucci-shark-bites-vim'
+Plug 'bignimbus/pop-punk.vim'
 call plug#end()
 call glaive#Install()
+colorscheme pop-punk
 Glaive codefmt plugin[mappings]
 Glaive codefmt google_java_executable="java -jar /Users/gabriel/.config/nvim/google-java-format-1.7-all-deps.jar"
 au BufRead,BufNewFile Jenkinsfile setfiletype Jenkinsfile
@@ -116,9 +118,6 @@ if executable('rg')
   let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
   let g:ctrlp_use_caching = 0
 endif
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow 
-            \--glob "!{.git,node_modules,.log,dist,target}/*" --glob "!{schema.json,yarn-error.log,yarn.lock,.travis.yml,.eslintrc.js,.prettierrc.js,apollo.config.js}" --color "always" '.shellescape(<q-args>), 1,
-            \ fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 let g:ctrlp_working_path_mode = 'r'
 let g:rainbow_active = 1
 let g:ctrlp_map = '<C-p>'
@@ -128,6 +127,7 @@ set completeopt-=preview
 let g:ctrlp_custom_ignore = 'node_modules\|git'
 :tnoremap<Esc> <C-\><C-n>
 
+set autoread
 filetype plugin indent on
 set tabstop=4
 set shiftwidth=4
