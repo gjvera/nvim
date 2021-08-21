@@ -55,7 +55,7 @@ Plug 'elzr/vim-json'
 Plug 'leafgarland/typescript-vim', { 'for': ['javascript', 'typescript'] }
 Plug 'peitalin/vim-jsx-typescript', { 'for': ['javascript', 'typescript'] }
 "=============== Python =========================== 
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+" Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 "=============== LaTeX ============================
 Plug 'lervag/vimtex', { 'for': 'tex' } "autocompletion for LaTeX
 let g:vimtex_view_general_viewer = 'zathura'
@@ -82,6 +82,7 @@ autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 Plug 'othree/xml.vim'      
 com! FormatXML :%!python3 -c "import xml.dom.minidom, sys; print(xml.dom.minidom.parse(sys.stdin).toprettyxml())"
 autocmd Filetype xml nnoremap = :FormatXML<Cr>
+Plug 'jvirtanen/vim-hcl'
 "============== Setup =============================
 Plug 'dense-analysis/ale'
 let g:ale_linters = {
@@ -92,6 +93,13 @@ Plug 'majutsushi/tagbar'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 map <C-b> :TagbarToggle<CR>
 Plug 'vim-airline/vim-airline' 
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 Plug 'tpope/vim-fugitive'      "git wrapper for vim airline
 Plug 'tpope/vim-commentary'    "commment blocks of code out
 Plug 'tpope/vim-surround'      "delete, change, add surrounding
@@ -101,30 +109,16 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 map <C-n> :NERDTreeToggle<CR>
 Plug 'luochen1990/rainbow'     "Rainbow Parenthesis
 Plug 'jiangmiao/auto-pairs'    "Auto closing of parenthesis 
-Plug 'floobits/floobits-neovim'
-Plug 'kien/ctrlp.vim'          
 Plug 'neoclide/coc.nvim', {'branch': 'release' }
 Plug 'bignimbus/pop-punk.vim'
 call plug#end()
-call glaive#Install()
-colorscheme pop-punk
-Glaive codefmt plugin[mappings]
-Glaive codefmt google_java_executable="java -jar /Users/gabriel/.config/nvim/google-java-format-1.7-all-deps.jar"
+colorscheme synthwave 
 au BufRead,BufNewFile Jenkinsfile setfiletype Jenkinsfile
 au BufRead,BufNewFile *.ts set filetype=typescript
-let g:ctrlp_root_markers = ['pom.xml, .git']
-if executable('rg')
-  set grepprg=rg\ --color=never
-  let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-  let g:ctrlp_use_caching = 0
-endif
-let g:ctrlp_working_path_mode = 'r'
 let g:rainbow_active = 1
-let g:ctrlp_map = '<C-p>'
 set ignorecase
 set smartcase
 set completeopt-=preview
-let g:ctrlp_custom_ignore = 'node_modules\|git'
 :tnoremap<Esc> <C-\><C-n>
 
 set autoread
