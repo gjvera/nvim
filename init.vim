@@ -89,6 +89,7 @@ let g:ale_linters = {
             \ 'python': ['pylint'],
             \ 'c': ['gcc']
             \}
+Plug 'ellisonleao/glow.nvim' "Awesome markdown support for neovim
 Plug 'majutsushi/tagbar'
 Plug 'martinda/Jenkinsfile-vim-syntax'
 map <C-b> :TagbarToggle<CR>
