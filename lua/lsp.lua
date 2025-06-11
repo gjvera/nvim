@@ -1,6 +1,6 @@
 require('lsp/servers/tailwind')
-require'lspconfig'.tsserver.setup{}
-lspconfig.eslint.setup({
+require'lspconfig'.ts_ls.setup{}
+require'lspconfig'.eslint.setup({
   --- ...
   on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
