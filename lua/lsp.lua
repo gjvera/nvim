@@ -1,15 +1,38 @@
+-- 1. Simple Server Initialization
+-- This replaces lspconfig.setup{} for servers with default settings
+
 require('lsp/servers/tailwind')
-require'lspconfig'.ts_ls.setup{}
-require'lspconfig'.eslint.setup({
-  --- ...
-  on_attach = function(client, bufnr)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      buffer = bufnr,
-      command = "EslintFixAll",
-    })
+local servers = { 'ts_ls', 'gopls' }
+
+for _, server in ipairs(servers) do
+    vim.lsp.enable(server)
+end
+
+-- 2. ESLint with "Fix on Save" Logic
+-- We use the native config to define the server and an autocmd for the behavior
+vim.lsp.config('eslint', {
+  -- If you need specific cmd or root_markers, add them here
+  -- otherwise it uses the built-in defaults
+})
+
+vim.lsp.enable('eslint')
+
+-- Native replacement for the on_attach block
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if client and client.name == "eslint" then
+      -- EslintFixAll on save
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        buffer = args.buf,
+        command = "EslintFixAll",
+      })
+    end
   end,
 })
 
+-- 3. nvim-cmp Setup (Remains mostly the same)
+-- nvim-cmp doesn't use the deprecated lspconfig framework, so this is safe
 local cmp = require 'cmp'
 cmp.setup {
   snippet = {

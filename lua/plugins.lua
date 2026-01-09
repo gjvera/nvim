@@ -1,5 +1,4 @@
  return {
-     "p00f/nvim-ts-rainbow",
      {
          "TroyFletcher/vim-colors-synthwave",
          lazy = false,
@@ -74,14 +73,14 @@
     {
          "nvim-treesitter/nvim-treesitter",
          config = function()
-             require'nvim-treesitter.configs'.setup {
+             require'nvim-treesitter'.setup({
                ensure_installed = "all",
                sync_install = false,
                highlight = {
                  enable = true,
                  additional_vim_regex_highlighting = false,
                },
-             }
+             })
          end
     },
     {
