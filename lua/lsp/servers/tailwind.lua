@@ -1,11 +1,8 @@
--- 1. Setup Handlers (UI/UX)
 local handlers = {
   ["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' }),
   ["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' }),
 }
 
--- 2. Capabilities
--- We still use cmp_nvim_lsp as a helper to bridge completion settings
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 local has_cmp, cmp_lsp = pcall(require, 'cmp_nvim_lsp')
 if has_cmp then
@@ -15,7 +12,6 @@ end
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.colorProvider = { dynamicRegistration = false }
 
--- 3. Define the Native Config
 vim.lsp.config('tailwindcss', {
   cmd = { "tailwindcss-language-server", "--stdio" },
   filetypes = { 
@@ -68,20 +64,16 @@ vim.lsp.config('tailwindcss', {
   }
 })
 
--- 4. Attachment Logic
--- We use an autocmd to handle the "on_attach" logic for the native API
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     local bufnr = args.buf
 
     if client and client.name == "tailwindcss" then
-      -- Dynamic Tab Size for Hover (Replacement for on_new_config logic)
       client.config.settings.tailwindCSS.editor = {
         tabSize = vim.bo[bufnr].tabstop
       }
 
-      -- Document Colors capability check
       if client.supports_method("textDocument/documentColor") then
         local has_colors, doc_colors = pcall(require, "lsp/documentcolors")
         if has_colors then
@@ -92,5 +84,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- 5. Enable the server
 vim.lsp.enable('tailwindcss')

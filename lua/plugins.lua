@@ -1,4 +1,13 @@
  return {
+    {
+      "iamcco/markdown-preview.nvim",
+      cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+      build = "cd app && npm install",
+      init = function()
+        vim.g.mkdp_filetypes = { "markdown" }
+      end,
+      ft = { "markdown" },
+    },
      {
          "TroyFletcher/vim-colors-synthwave",
          lazy = false,
@@ -113,9 +122,7 @@
            "MunifTanjim/nui.nvim",
            -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
          },
-         config = function()
-           require("neo-tree").setup()
-         end,
+         opts = {},
     },
     {
         "mfussenegger/nvim-jdtls",
